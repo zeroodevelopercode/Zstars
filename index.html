@@ -36,7 +36,7 @@ h2{font:800 clamp(42px,7vw,86px)/.98 Manrope;letter-spacing:-.075em;margin:18px 
 .orbit{position:absolute;width:min(34vw,390px);aspect-ratio:1;border:1px solid #242424;border-radius:50%;right:7%;bottom:-8%;display:grid;place-items:center;color:#777;font:700 12px Manrope;letter-spacing:3px;transform:rotate(-18deg)}
 .orbit:before,.orbit:after{content:"";position:absolute;border:1px solid #242424;border-radius:50%;inset:12%}.orbit:after{inset:25%}
 .side-index{position:absolute;left:clamp(24px,4vw,58px);bottom:35px;color:#666;font:600 11px Manrope;letter-spacing:2px}
-.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:42px}
+.reveal{opacity:0;transform:translateY(26px)}\n@media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none}}\n.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:42px}
 .person,.feature{border:1px solid #292929;background:linear-gradient(145deg,#151515,#0b0b0b);border-radius:26px;padding:25px;min-height:225px;display:flex;flex-direction:column;justify-content:space-between;transition:transform .3s,border-color .3s,background .3s;position:relative;overflow:hidden}
 .person:hover,.feature:hover{transform:translateY(-5px);border-color:#777;background:#191919}
 .avatar{width:64px;height:64px;border:1px solid #555;border-radius:22px;overflow:hidden;background:#181818;flex:none}.avatar img{width:100%;height:100%;display:block;object-fit:cover;object-position:center}
@@ -94,9 +94,9 @@ h2{font:800 clamp(42px,7vw,86px)/.98 Manrope;letter-spacing:-.075em;margin:18px 
 <h2 class="reveal">Made by people.<br><span style="color:#777">For people.</span></h2>
 <p class="sub reveal">Satu orang di balik banyak peran. Semua arah, pengembangan, dan pengalaman Zstars dibangun dari satu tempat.</p>
 <div class="grid">
-<article class="person reveal"><span class="meta">01 / THE FOUNDER</span><div class="avatar"><img class="profile-avatar" alt="Foto profil contributor"></div><div><h3>Zeroo Dev</h3><span class="role">Founder & direction</span></div></article>
-<article class="person reveal"><span class="meta">02 / THE BUILDER</span><div class="avatar"><img class="profile-avatar" alt="Foto profil contributor"></div><div><h3>Zeroo Dev</h3><span class="role">Development & engineering</span></div></article>
-<article class="person reveal"><span class="meta">03 / THE CREATIVE</span><div class="avatar"><img class="profile-avatar" alt="Foto profil contributor"></div><div><h3>Zeroo Dev</h3><span class="role">Design & experience</span></div></article>
+<article class="person reveal"><span class="meta">01 / THE FOUNDER</span><div class="avatar"><img class="profile-avatar" src="/avatar.jpg" alt="Foto profil Zeroo"></div><div><h3>Zeroo</h3><span class="role">Founder & direction</span></div></article>
+<article class="person reveal"><span class="meta">02 / THE BUILDER</span><div class="avatar"><img class="profile-avatar" src="/avatar.jpg" alt="Foto profil Zeroo"></div><div><h3>Zeroo</h3><span class="role">Development & engineering</span></div></article>
+<article class="person reveal"><span class="meta">03 / THE CREATIVE</span><div class="avatar"><img class="profile-avatar" src="/avatar.jpg" alt="Foto profil Zeroo"></div><div><h3>Zeroo</h3><span class="role">Design & experience</span></div></article>
 </div>
 </div><span class="side-index">02 / 04</span>
 </section>
@@ -134,20 +134,19 @@ import { animate } from 'https://cdn.jsdelivr.net/npm/motion@12.23.24/+esm';
 const reduceMotion=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 const screens=[...document.querySelectorAll('.screen')];
 
-fetch('/avatar-base64.txt').then(r=>r.ok?r.text():Promise.reject()).then(encoded=>{const src='data:image/jpeg;base64,'+encoded.trim();document.querySelectorAll('.profile-avatar').forEach(img=>img.src=src)}).catch(()=>{});
+
 const toast=document.getElementById('toast');let toastTimer;
 function showToast(message){toast.textContent=message;toast.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>toast.classList.remove('show'),2800)}
 function goTo(index){const target=screens[Math.max(0,Math.min(screens.length-1,index))];if(window.zstarsLenis)window.zstarsLenis.scrollTo(target,{duration:reduceMotion?0:.85,lock:true});else target.scrollIntoView({behavior:reduceMotion?'auto':'smooth'})}
 
 document.querySelectorAll('[data-next]').forEach(button=>button.addEventListener('click',()=>goTo(Number(button.dataset.next))));
 document.getElementById('login-demo').addEventListener('click',()=>showToast('Website utama Zstars belum tersedia. Link login akan ditambahkan nanti.'));
-const observer=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){if(!reduceMotion){entry.target.querySelectorAll('.reveal').forEach((el,n)=>{if(el.dataset.animated)return;el.dataset.animated='1';animate(el,{opacity:[0,1],transform:['translateY(28px)','translateY(0px)']},{duration:.7,delay:n*.08,easing:[.22,.8,.2,1]})})}}}),{threshold:.55});
-screens.forEach(screen=>observer.observe(screen));
+const revealObserver=new IntersectionObserver(entries=>entries.forEach(entry=>{if(!entry.isIntersecting)return;const el=entry.target;revealObserver.unobserve(el);if(reduceMotion){el.style.opacity='1';el.style.transform='none';return;}animate(el,{opacity:[0,1],transform:['translateY(26px)','translateY(0px)']},{duration:.72,easing:[.22,.8,.2,1]});}),{threshold:.12,rootMargin:'0px 0px -36px 0px'});
+document.querySelectorAll('.reveal').forEach(el=>revealObserver.observe(el));
 if(!reduceMotion){
  const lenis=new Lenis({lerp:.11,smoothWheel:true,wheelMultiplier:1});
  window.zstarsLenis=lenis;
  if(window.gsap&&window.ScrollTrigger){gsap.registerPlugin(ScrollTrigger);lenis.on('scroll',ScrollTrigger.update);gsap.ticker.add(t=>lenis.raf(t*1000));gsap.ticker.lagSmoothing(0);
-  screens.forEach(screen=>gsap.fromTo(screen.querySelector('.eyebrow'),{x:-20,opacity:0},{x:0,opacity:1,duration:.7,ease:'power2.out',scrollTrigger:{trigger:screen,start:'top 70%',once:true}}));
  }
  // Snap each completed wheel/touch scroll to the nearest full-screen section.
  let snapTimer;
