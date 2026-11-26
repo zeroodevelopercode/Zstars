@@ -3,48 +3,168 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#0b0d10">
+<meta name="theme-color" content="#000000">
 <meta name="description" content="Zstars — ruang komunitas untuk berbagi ide, cerita, dan diskusi.">
 <title>Zstars — Your space, your people</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
-:root{color-scheme:dark;--bg:#0b0d10;--panel:#11151a;--line:#252b33;--muted:#89939f;--text:#f3f5f7;--accent:#c8ff54}
-*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--text);font:15px/1.6 Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif;user-select:none;-webkit-tap-highlight-color:transparent}a,button{color:inherit}a{text-decoration:none}button{font:inherit;cursor:pointer}button:focus-visible,a:focus-visible{outline:2px solid var(--accent);outline-offset:4px}::selection{background:var(--accent);color:#10130b}.wrap{width:min(1080px,calc(100% - 44px));margin:auto}.top{height:76px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between}.brand{font-size:19px;font-weight:850;letter-spacing:-.8px}.brand span{color:var(--accent)}.nav{display:flex;align-items:center;gap:28px;color:#aab2bc;font-size:13px}.nav a:hover{color:var(--text)}.nav-cta,.primary{background:var(--accent);color:#10130b;border:0;border-radius:999px;padding:11px 19px;font-weight:750;transition:transform .18s,filter .18s}.nav-cta:hover,.primary:hover{transform:translateY(-2px);filter:brightness(1.06)}.menu{display:none;background:none;border:0;font-size:22px}.hero{padding:104px 0 88px;max-width:820px}.eyebrow{display:inline-flex;align-items:center;gap:9px;color:var(--accent);font-size:11px;font-weight:800;letter-spacing:2px;text-transform:uppercase}.dot{width:7px;height:7px;border-radius:50%;background:var(--accent);box-shadow:0 0 14px #c8ff5480}.hero h1{font-size:clamp(48px,8vw,88px);line-height:.99;letter-spacing:-5px;margin:25px 0 22px;font-weight:850}.hero h1 em{font-style:normal;color:var(--accent)}.lead{color:#a4adb8;max-width:540px;font-size:17px;line-height:1.8}.actions{display:flex;gap:12px;align-items:center;margin-top:32px;flex-wrap:wrap}.secondary{background:transparent;border:1px solid #39414b;border-radius:999px;padding:10px 18px;color:#dce1e6;transition:border-color .18s,background .18s}.secondary:hover{border-color:#77818d;background:#171c22}.hint{color:#6e7884;font-size:12px;margin-top:18px}.section{border-top:1px solid var(--line);padding:34px 0 72px}.section-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px}.section-head h2{font-size:13px;letter-spacing:1.8px;text-transform:uppercase;color:#aab3bd;margin:0}.section-head span{font-size:12px;color:#69737f}.features{display:grid;grid-template-columns:repeat(3,1fr);gap:30px}.feature{padding:18px 0;border-top:1px solid #39414b}.number{color:var(--accent);font-size:12px;font-weight:800;letter-spacing:1px}.feature h3{font-size:19px;margin:12px 0 7px;letter-spacing:-.4px}.feature p{margin:0;color:#89939f;font-size:13px;max-width:270px}.bottom{border-top:1px solid var(--line);padding:24px 0 34px;display:flex;justify-content:space-between;color:#69737f;font-size:12px}.bottom strong{color:#d9dfe5}.toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,18px);background:#eaffc4;color:#11170a;padding:11px 17px;border-radius:999px;font-weight:700;font-size:13px;opacity:0;pointer-events:none;transition:.22s;box-shadow:0 10px 40px #0008}.toast.show{opacity:1;transform:translate(-50%,0)}@media(max-width:680px){.wrap{width:min(100% - 36px,1080px)}.top{height:66px}.nav{display:none}.menu{display:block}.hero{padding:82px 0 72px}.hero h1{letter-spacing:-3px}.lead{font-size:15px}.features{grid-template-columns:1fr;gap:14px}.feature{padding:16px 0}.bottom{gap:12px;flex-direction:column}.section{padding-bottom:55px}}
+:root{color-scheme:dark;--bg:#000;--surface:#111;--surface-2:#1c1c1c;--surface-3:#262626;--line:#303030;--text:#f5f5f5;--muted:#aaa;--soft:#777;--white:#fff;--radius-xl:36px;--radius-lg:28px;--radius-md:20px}
+*{box-sizing:border-box}
+html{background:var(--bg);scroll-behavior:auto}
+body{margin:0;background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;line-height:1.55;user-select:none;-webkit-tap-highlight-color:transparent;overflow-x:hidden}
+a,button{-webkit-tap-highlight-color:transparent;color:inherit}
+a{text-decoration:none}
+button{font:inherit;cursor:pointer}
+::selection{background:#fff;color:#000}
+:focus-visible{outline:2px solid #fff;outline-offset:4px}
+.wrap{width:min(1160px,calc(100% - 48px));margin-inline:auto}
+.topbar{height:84px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #222}
+.brand{font:800 22px Manrope,sans-serif;letter-spacing:-1.2px}
+.brand span{color:#888}
+.nav{display:flex;align-items:center;gap:34px;color:#aaa;font-size:13px}
+.nav a{transition:color .2s}.nav a:hover{color:#fff}
+.pill{border:1px solid #555;background:#fff;color:#000;padding:12px 21px;border-radius:999px;font-size:13px;font-weight:800;transition:transform .25s,background .25s}
+.pill:hover{transform:translateY(-3px);background:#ddd}
+.menu{display:none;border:1px solid #333;background:#171717;color:white;border-radius:50%;width:44px;height:44px;font-size:19px}
+.hero{min-height:680px;padding:112px 0 96px;display:flex;flex-direction:column;justify-content:center;position:relative}
+.eyebrow{display:flex;align-items:center;gap:10px;color:#aaa;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase}
+.eyebrow:before{content:'';width:7px;height:7px;border-radius:50%;background:#fff}
+h1,h2,h3,p{margin-top:0}
+h1{font:800 clamp(58px,9vw,112px)/.98 Manrope,sans-serif;letter-spacing:-.075em;max-width:950px;margin:28px 0}
+h1 span{color:#777}
+.lead{font-size:clamp(16px,2vw,19px);line-height:1.8;color:#aaa;max-width:570px;margin-bottom:0}
+.actions{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-top:36px}
+.outline{border:1px solid #444;background:transparent;color:#eee;padding:12px 21px;border-radius:999px;font-size:13px;font-weight:700;transition:background .2s,border-color .2s}
+.outline:hover{background:#1b1b1b;border-color:#777}
+.micro{font-size:12px;color:#777;margin-top:19px}
+.hero-mark{position:absolute;right:5%;bottom:100px;width:150px;height:150px;border:1px solid #292929;border-radius:50%;display:grid;place-items:center;color:#777;font:700 11px Manrope;letter-spacing:2px;transform:rotate(-15deg)}
+.hero-mark:before,.hero-mark:after{content:'';position:absolute;border:1px solid #292929;border-radius:50%;inset:14px}.hero-mark:after{inset:29px}
+.section{padding:42px 0 110px;border-top:1px solid #242424}
+.section-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:42px}
+.kicker{font-size:11px;font-weight:700;letter-spacing:2px;color:#888;text-transform:uppercase}
+.section-head h2{font:700 clamp(24px,4vw,42px)/1.1 Manrope,sans-serif;letter-spacing:-.055em;margin:8px 0 0}
+.counter{font:600 12px Manrope;color:#777}
+.feature-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.feature{min-height:250px;background:var(--surface);border:1px solid #222;border-radius:var(--radius-lg);padding:28px;display:flex;flex-direction:column;justify-content:space-between;transition:background .3s,border-color .3s,transform .3s}
+.feature:hover{background:#191919;border-color:#555;transform:translateY(-5px)}
+.feature-num{font:700 12px Manrope;color:#777}
+.feature h3{font:700 24px Manrope;letter-spacing:-1px;margin:0 0 10px}
+.feature p{font-size:14px;color:#999;max-width:270px;margin:0}
+.cta{background:#f1f1f1;color:#050505;border-radius:var(--radius-xl);padding:clamp(30px,6vw,70px);display:flex;align-items:flex-end;justify-content:space-between;gap:32px}
+.cta .kicker{color:#555}
+.cta h2{font:800 clamp(36px,6vw,66px)/1 Manrope;letter-spacing:-.07em;max-width:650px;margin:16px 0 0}
+.cta p{color:#555;max-width:420px;margin:18px 0 0}
+.cta .pill{background:#000;color:#fff;border-color:#000;white-space:nowrap}
+footer{padding:28px 0 38px;display:flex;justify-content:space-between;gap:18px;color:#777;font-size:12px}
+footer strong{color:#eee;font:800 17px Manrope;letter-spacing:-.7px}
+.toast{position:fixed;z-index:20;bottom:28px;left:50%;transform:translate(-50%,24px);opacity:0;pointer-events:none;background:#f4f4f4;color:#000;padding:13px 20px;border-radius:999px;font-size:13px;font-weight:700;box-shadow:0 12px 40px #0009;transition:opacity .25s,transform .25s;white-space:nowrap}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+@media(max-width:760px){.wrap{width:calc(100% - 36px)}.topbar{height:72px}.nav{display:none}.menu{display:block}.hero{min-height:650px;padding:90px 0}.hero-mark{width:100px;height:100px;right:4%;bottom:55px;font-size:8px;opacity:.55}h1{font-size:clamp(56px,14vw,86px)}.feature-grid{grid-template-columns:1fr}.feature{min-height:190px}.section{padding-bottom:78px}.cta{align-items:flex-start;flex-direction:column;border-radius:28px}.cta .pill{margin-top:4px}footer{flex-direction:column}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;transition:none!important}}
 </style>
 </head>
 <body>
-<header class="wrap top">
-<a class="brand" href="#" aria-label="Zstars home">Z<span>stars</span></a>
-<nav class="nav" aria-label="Main navigation"><a href="#about">Tentang</a><a href="#explore">Eksplorasi</a><a href="#community">Komunitas</a><button class="nav-cta" data-join>Gabung awal</button></nav>
-<button class="menu" aria-label="Menu" id="menu">☰</button>
+<header class="wrap topbar">
+<a class="brand" href="#" aria-label="Zstars home">Zstars<span>.</span></a>
+<nav class="nav" id="nav"><a href="#about">Tentang</a><a href="#explore">Eksplorasi</a><a href="#community">Komunitas</a><button class="pill" data-join>Gabung tester</button></nav>
+<button class="menu" id="menu" aria-label="Buka menu" aria-expanded="false">☰</button>
 </header>
 <main class="wrap">
 <section class="hero" id="about">
-<div class="eyebrow"><span class="dot"></span> A new space is forming</div>
-<h1>Temukan ruang.<br><em>Temukan orang.</em></h1>
-<p class="lead">Zstars adalah ruang komunitas untuk berbagi hal yang kamu suka, menemukan perspektif baru, dan ngobrol bareng orang-orang dengan minat yang sama.</p>
-<div class="actions"><button class="primary" data-join>Ikut jadi tester <span aria-hidden="true">↗</span></button><a class="secondary" href="#explore">Kenali Zstars ↓</a></div>
-<p class="hint">Masih tahap awal. Dibangun bareng komunitas.</p>
+<div class="eyebrow hero-in">A new space is forming</div>
+<h1 class="hero-in">Temukan ruang.<br><span>Temukan orang.</span></h1>
+<p class="lead hero-in">Zstars adalah ruang komunitas untuk berbagi hal yang kamu suka, menemukan perspektif baru, dan ngobrol bareng orang-orang dengan minat yang sama.</p>
+<div class="actions hero-in"><button class="pill" data-join>Ikut jadi tester <span aria-hidden="true">↗</span></button><a class="outline" href="#explore">Kenali Zstars ↓</a></div>
+<p class="micro hero-in">Masih tahap awal. Dibangun bareng komunitas.</p>
+<div class="hero-mark" aria-hidden="true">Z / COMMUNITY</div>
 </section>
 <section class="section" id="explore">
-<div class="section-head"><h2>Dibuat untuk terhubung</h2><span>01 — 03</span></div>
-<div class="features">
-<article class="feature"><span class="number">01 / SHARE</span><h3>Bagikan ceritamu</h3><p>Mulai diskusi, posting ide, atau ceritakan apa yang sedang kamu temukan.</p></article>
-<article class="feature"><span class="number">02 / DISCOVER</span><h3>Temukan minat baru</h3><p>Jelajahi topik dan komunitas yang sesuai dengan rasa ingin tahumu.</p></article>
-<article class="feature"><span class="number">03 / CONNECT</span><h3>Bangun koneksi</h3><p>Temui orang-orang yang punya ketertarikan serupa dan bertukar sudut pandang.</p></article>
+<div class="section-head"><div><div class="kicker">Dibuat untuk terhubung</div><h2>Satu ruang. Banyak kemungkinan.</h2></div><span class="counter">01 — 03</span></div>
+<div class="feature-grid">
+<article class="feature reveal"><span class="feature-num">01 / SHARE</span><div><h3>Bagikan ceritamu</h3><p>Mulai diskusi, posting ide, atau ceritakan apa yang sedang kamu temukan.</p></div></article>
+<article class="feature reveal"><span class="feature-num">02 / DISCOVER</span><div><h3>Temukan minat baru</h3><p>Jelajahi topik dan komunitas yang sesuai dengan rasa ingin tahumu.</p></div></article>
+<article class="feature reveal"><span class="feature-num">03 / CONNECT</span><div><h3>Bangun koneksi</h3><p>Temui orang-orang yang punya ketertarikan serupa dan bertukar sudut pandang.</p></div></article>
 </div>
 </section>
 <section class="section" id="community">
-<div class="section-head"><h2>Bab pertama dimulai di sini</h2><span>EARLY ACCESS</span></div>
-<p class="lead">Kami sedang menyiapkan pengalaman pertama Zstars. Ikut jadi bagian dari perjalanan awalnya.</p>
-<div class="actions"><button class="primary" data-join>Gabung daftar tester ↗</button><a class="secondary" href="https://github.com/zeroodevelopercode/Zstars" target="_blank" rel="noreferrer">Lihat project</a></div>
+<div class="cta reveal">
+<div><div class="kicker">Early access</div><h2>Bab pertama dimulai di sini.</h2><p>Kami sedang menyiapkan pengalaman pertama Zstars. Ikut jadi bagian dari perjalanan awalnya.</p></div>
+<button class="pill" data-join>Gabung daftar tester ↗</button>
+</div>
 </section>
 </main>
-<footer class="wrap bottom"><strong>Zstars<span style="color:var(--accent)">.</span></strong><span>© <span id="year"></span> Zstars — Made for communities.</span></footer>
-<div class="toast" id="toast" role="status" aria-live="polite">Tester awal segera dibuka. Stay tuned!</div>
-<script>
-const toast=document.getElementById('toast');let toastTimer;
-document.querySelectorAll('[data-join]').forEach(button=>button.addEventListener('click',()=>{toast.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>toast.classList.remove('show'),2600)}));
-document.getElementById('year').textContent=new Date().getFullYear();
-document.getElementById('menu').addEventListener('click',()=>{document.querySelector('.nav').style.display='flex';document.querySelector('.nav').style.position='absolute';document.querySelector('.nav').style.top='66px';document.querySelector('.nav').style.right='18px';document.querySelector('.nav').style.padding='18px';document.querySelector('.nav').style.background='#11151a';document.querySelector('.nav').style.border='1px solid #252b33';document.querySelector('.nav').style.borderRadius='12px';document.querySelector('.nav').style.flexDirection='column';});
+<footer class="wrap"><strong>Zstars.</strong><span>© <span id="year"></span> Zstars — Made for communities.</span></footer>
+<div class="toast" id="toast" role="status" aria-live="polite">Pendaftaran tester akan segera dibuka. Stay tuned!</div>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.3.11/dist/lenis.min.js"></script>
+<script type="module">
+import { animate, inView } from 'https://cdn.jsdelivr.net/npm/motion@12.23.24/+esm';
+
+const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+document.getElementById('year').textContent = new Date().getFullYear();
+
+const toast = document.getElementById('toast');
+let toastTimer;
+document.querySelectorAll('[data-join]').forEach(button => button.addEventListener('click', () => {
+  toast.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => toast.classList.remove('show'), 2800);
+}));
+
+const menu = document.getElementById('menu');
+const nav = document.getElementById('nav');
+menu.addEventListener('click', () => {
+  const opened = menu.getAttribute('aria-expanded') === 'true';
+  menu.setAttribute('aria-expanded', String(!opened));
+  menu.textContent = opened ? '☰' : '×';
+  Object.assign(nav.style, opened ? {display:'none'} : {
+    display:'flex', position:'absolute', zIndex:'10', top:'62px', right:'18px',
+    padding:'22px', background:'#111', border:'1px solid #333', borderRadius:'24px',
+    flexDirection:'column', alignItems:'stretch', gap:'20px'
+  });
+});
+nav.querySelectorAll('a').forEach(link => link.addEventListener('click', () => {
+  if (window.innerWidth <= 760) { nav.style.display='none'; menu.setAttribute('aria-expanded','false'); menu.textContent='☰'; }
+}));
+
+if (!reduceMotion) {
+  // Motion: slide-in entrance for hero content.
+  document.querySelectorAll('.hero-in').forEach((el, index) => {
+    animate(el, { opacity:[0,1], transform:['translateY(34px)','translateY(0px)'] },
+      { duration:.85, delay:.12 + index*.11, easing:[.22,.8,.2,1] });
+  });
+
+  // GSAP + ScrollTrigger: reveal sections as they enter the viewport.
+  gsap.registerPlugin(ScrollTrigger);
+  gsap.utils.toArray('.reveal').forEach((el, index) => {
+    gsap.fromTo(el, { y:64, opacity:0 }, {
+      y:0, opacity:1, duration:1, ease:'power3.out',
+      delay: index*.08,
+      scrollTrigger:{ trigger:el, start:'top 88%', once:true }
+    });
+  });
+
+  // Lenis: smooth scrolling, synced with GSAP's ticker.
+  if (window.Lenis) {
+    const lenis = new Lenis({ lerp:.09, smoothWheel:true, wheelMultiplier:.9 });
+    lenis.on('scroll', ScrollTrigger.update);
+    gsap.ticker.add(time => lenis.raf(time * 1000));
+    gsap.ticker.lagSmoothing(0);
+  }
+
+  // Motion slide response for feature cards entering view.
+  document.querySelectorAll('.feature').forEach(el => {
+    inView(el, () => {
+      animate(el, { transform:['translateX(18px)','translateX(0px)'] },
+        { duration:.55, easing:[.22,.8,.2,1] });
+    }, { once:true, amount:.2 });
+  });
+} else {
+  document.querySelectorAll('.hero-in,.reveal').forEach(el => { el.style.opacity=1; el.style.transform='none'; });
+}
 </script>
-</body></html>
+</body>
+</html>
