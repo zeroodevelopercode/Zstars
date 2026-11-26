@@ -134,7 +134,8 @@ import { animate } from 'https://cdn.jsdelivr.net/npm/motion@12.23.24/+esm';
 const reduceMotion=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 const screens=[...document.querySelectorAll('.screen')];
 
-fetch('/avatar-base64.txt').then(r=>r.ok?r.text():Promise.reject()).then(encoded=>{const src='data:image/jpeg;base64,'+encoded.trim();document.querySelectorAll('.profile-avatar').forEach(img=>img.src=src)}).catch(()=>{});\nconst toast=document.getElementById('toast');let toastTimer;
+fetch('/avatar-base64.txt').then(r=>r.ok?r.text():Promise.reject()).then(encoded=>{const src='data:image/jpeg;base64,'+encoded.trim();document.querySelectorAll('.profile-avatar').forEach(img=>img.src=src)}).catch(()=>{});
+const toast=document.getElementById('toast');let toastTimer;
 function showToast(message){toast.textContent=message;toast.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>toast.classList.remove('show'),2800)}
 function goTo(index){const target=screens[Math.max(0,Math.min(screens.length-1,index))];if(window.zstarsLenis)window.zstarsLenis.scrollTo(target,{duration:reduceMotion?0:.85,lock:true});else target.scrollIntoView({behavior:reduceMotion?'auto':'smooth'})}
 
