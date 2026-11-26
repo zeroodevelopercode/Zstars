@@ -19,9 +19,6 @@ a,button{-webkit-tap-highlight-color:transparent;color:inherit}a{text-decoration
 .topbar{position:fixed;z-index:20;top:0;left:0;width:100%;height:78px;padding:0 clamp(22px,6vw,88px);display:flex;align-items:center;justify-content:space-between;background:linear-gradient(#050505ee,#05050500)}
 .brand{font:800 23px Manrope;letter-spacing:-1.4px}.brand span{color:#777}
 .top-note{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#888}
-.dots{position:fixed;z-index:30;right:clamp(16px,3vw,42px);top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:13px}
-.dot{width:7px;height:7px;padding:0;border:0;border-radius:20px;background:#555;transition:height .3s,background .3s}
-.dot[aria-current=true]{height:27px;background:#fff}
 .screen{height:100svh;min-height:620px;scroll-snap-align:start;scroll-snap-stop:always;position:relative;display:flex;align-items:center;overflow:hidden;padding:100px clamp(24px,10vw,150px) 72px}
 .inner{width:min(1100px,100%);margin:auto}
 .eyebrow{display:flex;align-items:center;gap:10px;color:#999;font-size:11px;letter-spacing:2.4px;text-transform:uppercase;font-weight:700}
@@ -63,7 +60,6 @@ h2{font:800 clamp(42px,7vw,86px)/.98 Manrope;letter-spacing:-.075em;margin:18px 
  .topbar{height:66px;padding:0 20px}.top-note{font-size:9px;letter-spacing:1px}
  .screen{min-height:600px;padding:90px 25px 65px}
  h1{font-size:clamp(58px,15vw,92px)}h2{font-size:clamp(43px,11vw,66px)}
- .orbit{width:160px;right:-42px;bottom:2%;opacity:.55}
  .grid{grid-template-columns:1fr;gap:9px;margin-top:24px}
  .person,.feature{min-height:0;padding:15px 18px;display:grid;grid-template-columns:52px 1fr;gap:14px;align-items:center}
  .person .meta,.feature .number{grid-column:1/-1}
@@ -82,12 +78,6 @@ h2{font:800 clamp(42px,7vw,86px)/.98 Manrope;letter-spacing:-.075em;margin:18px 
 </head>
 <body>
 <header class="topbar"><a class="brand" href="#welcome">Zstars<span>.</span></a><span class="top-note">A space to belong</span></header>
-<nav class="dots" aria-label="Navigasi halaman">
-<button class="dot" data-go="0" aria-label="Welcome" aria-current="true"></button>
-<button class="dot" data-go="1" aria-label="Contributors" aria-current="false"></button>
-<button class="dot" data-go="2" aria-label="Features" aria-current="false"></button>
-<button class="dot" data-go="3" aria-label="Contact and login" aria-current="false"></button>
-</nav>
 <main>
 <section class="screen" id="welcome">
 <div class="inner">
@@ -96,7 +86,7 @@ h2{font:800 clamp(42px,7vw,86px)/.98 Manrope;letter-spacing:-.075em;margin:18px 
 <p class="sub hero-in">Sebuah ruang untuk berbagi cerita, menemukan hal baru, dan terhubung dengan orang-orang yang punya minat serupa.</p>
 <div class="actions hero-in"><button class="btn" data-next="1">Explore Zstars <span>↗</span></button><span class="hint" style="margin:0">SCROLL TO DISCOVER ↓</span></div>
 </div>
-<div class="orbit" aria-hidden="true">Z / COMMUNITY</div><span class="side-index">01 / 04</span>
+<span class="side-index">01 / 04</span>
 </section>
 <section class="screen" id="contributors">
 <div class="inner">
@@ -143,14 +133,14 @@ h2{font:800 clamp(42px,7vw,86px)/.98 Manrope;letter-spacing:-.075em;margin:18px 
 import { animate } from 'https://cdn.jsdelivr.net/npm/motion@12.23.24/+esm';
 const reduceMotion=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 const screens=[...document.querySelectorAll('.screen')];
-const dots=[...document.querySelectorAll('.dot')];
+
 const toast=document.getElementById('toast');let toastTimer;
 function showToast(message){toast.textContent=message;toast.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>toast.classList.remove('show'),2800)}
 function goTo(index){const target=screens[Math.max(0,Math.min(screens.length-1,index))];if(window.zstarsLenis)window.zstarsLenis.scrollTo(target,{duration:reduceMotion?0:.85,lock:true});else target.scrollIntoView({behavior:reduceMotion?'auto':'smooth'})}
-dots.forEach(dot=>dot.addEventListener('click',()=>goTo(Number(dot.dataset.go))));
+
 document.querySelectorAll('[data-next]').forEach(button=>button.addEventListener('click',()=>goTo(Number(button.dataset.next))));
 document.getElementById('login-demo').addEventListener('click',()=>showToast('Website utama Zstars belum tersedia. Link login akan ditambahkan nanti.'));
-const observer=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){const i=screens.indexOf(entry.target);dots.forEach((dot,n)=>dot.setAttribute('aria-current',String(n===i)));if(!reduceMotion){entry.target.querySelectorAll('.reveal').forEach((el,n)=>{if(el.dataset.animated)return;el.dataset.animated='1';animate(el,{opacity:[0,1],transform:['translateY(28px)','translateY(0px)']},{duration:.7,delay:n*.08,easing:[.22,.8,.2,1]})})}}}),{threshold:.55});
+const observer=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){if(!reduceMotion){entry.target.querySelectorAll('.reveal').forEach((el,n)=>{if(el.dataset.animated)return;el.dataset.animated='1';animate(el,{opacity:[0,1],transform:['translateY(28px)','translateY(0px)']},{duration:.7,delay:n*.08,easing:[.22,.8,.2,1]})})}}}),{threshold:.55});
 screens.forEach(screen=>observer.observe(screen));
 if(!reduceMotion){
  const lenis=new Lenis({lerp:.11,smoothWheel:true,wheelMultiplier:1});
