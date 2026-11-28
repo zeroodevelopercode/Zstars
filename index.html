@@ -3,7 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#000000">
+<meta name="theme-color" content="#050505">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Zstars">
+<link rel="manifest" href="./manifest.webmanifest">
+<link rel="icon" type="image/svg+xml" href="./icons/zstars-icon.svg">
+<link rel="apple-touch-icon" href="./icons/zstars-icon.svg">
 <meta name="description" content="Zstars — ruang untuk berbagi, menemukan, dan terhubung.">
 <title>Zstars — A space to belong</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -19,6 +26,10 @@ a,button{-webkit-tap-highlight-color:transparent;color:inherit}a{text-decoration
 .topbar{position:fixed;z-index:20;top:0;left:0;width:100%;height:78px;padding:0 clamp(22px,6vw,88px);display:flex;align-items:center;justify-content:space-between;background:linear-gradient(#050505ee,#05050500)}
 .brand{font:800 23px Manrope;letter-spacing:-1.4px}.brand span{color:#777}
 .top-note{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#888}
+.install-btn{border:1px solid #444;background:#111;color:#eee;border-radius:999px;padding:9px 14px;font-size:11px;font-weight:700;letter-spacing:.3px;transition:background .2s,border-color .2s}
+.install-btn:hover{background:#222;border-color:#888}
+.top-actions{display:flex;align-items:center;gap:16px}
+@media(max-width:760px){.top-actions{gap:9px}.install-btn{padding:8px 11px;font-size:10px}.top-note{display:none}}
 .screen{height:100svh;min-height:620px;scroll-snap-align:start;scroll-snap-stop:always;position:relative;display:flex;align-items:center;overflow:hidden;padding:100px clamp(24px,10vw,150px) 72px}
 .inner{width:min(1100px,100%);margin:auto}
 .eyebrow{display:flex;align-items:center;gap:10px;color:#999;font-size:11px;letter-spacing:2.4px;text-transform:uppercase;font-weight:700}
@@ -77,7 +88,7 @@ h2{font:800 clamp(42px,7vw,86px)/.98 Manrope;letter-spacing:-.075em;margin:18px 
 </style>
 </head>
 <body>
-<header class="topbar"><a class="brand" href="#welcome">Zstars<span>.</span></a><span class="top-note">A space to belong</span></header>
+<header class="topbar"><a class="brand" href="#welcome">Zstars<span>.</span></a><div class="top-actions"><span class="top-note">A space to belong</span><button class="install-btn" id="install-app" type="button">Install app ↧</button></div></header>
 <main>
 <section class="screen" id="welcome">
 <div class="inner">
@@ -141,6 +152,11 @@ function goTo(index){const target=screens[Math.max(0,Math.min(screens.length-1,i
 
 document.querySelectorAll('[data-next]').forEach(button=>button.addEventListener('click',()=>goTo(Number(button.dataset.next))));
 document.getElementById('login-demo').addEventListener('click',()=>showToast('Website utama Zstars belum tersedia. Link login akan ditambahkan nanti.'));
+let deferredInstallPrompt=null;
+const installButton=document.getElementById('install-app');
+window.addEventListener('beforeinstallprompt',event=>{event.preventDefault();deferredInstallPrompt=event;installButton.textContent='Install app ↧';});
+window.addEventListener('appinstalled',()=>{deferredInstallPrompt=null;installButton.textContent='Installed ✓';installButton.disabled=true;showToast('Zstars berhasil dipasang di perangkat ini.');});
+installButton.addEventListener('click',async()=>{if(deferredInstallPrompt){deferredInstallPrompt.prompt();const choice=await deferredInstallPrompt.userChoice; if(choice.outcome==='accepted')showToast('Zstars sedang dipasang.');deferredInstallPrompt=null;return;}showToast('Di Chrome: buka menu ⋮ lalu pilih Install app atau Add to Home screen.');});
 const revealObserver=new IntersectionObserver(entries=>entries.forEach(entry=>{if(!entry.isIntersecting)return;const el=entry.target;revealObserver.unobserve(el);if(reduceMotion){el.style.opacity='1';el.style.transform='none';return;}animate(el,{opacity:[0,1],transform:['translateY(26px)','translateY(0px)']},{duration:.72,easing:[.22,.8,.2,1]});}),{threshold:.12,rootMargin:'0px 0px -36px 0px'});
 document.querySelectorAll('.reveal').forEach(el=>revealObserver.observe(el));
 if(!reduceMotion){
@@ -153,5 +169,6 @@ if(!reduceMotion){
  lenis.on('scroll',({scroll})=>{clearTimeout(snapTimer);snapTimer=setTimeout(()=>{const nearest=screens.reduce((best,el)=>Math.abs(el.offsetTop-scroll)<Math.abs(best.offsetTop-scroll)?el:best,screens[0]);if(Math.abs(nearest.offsetTop-scroll)>3)lenis.scrollTo(nearest,{duration:.65,lock:true})},170)});
 }
 </script>
+<script>if("serviceWorker" in navigator && location.protocol==="https:"){window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js").catch(()=>{}));}</script>
 </body>
 </html>
